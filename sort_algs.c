@@ -63,7 +63,7 @@ void merge_sort(int a[], int len)
 	if (len > 1)
 	{
 		merge_sort(&a[0], len/2);
-		merge_sort(&a[len/2], len/2);
+		merge_sort(&a[len/2], len-(len/2));
 		merge(&a[0], len);
 	}
 }
