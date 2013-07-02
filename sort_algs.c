@@ -3,6 +3,9 @@
 // to run
 // gcc sort_algs.c
 // ./a.out
+
+#define COUNT_OF(x) (sizeof(x)/sizeof(x[0]))
+
 void print_array(int a[], int len);
 void insert_sort (int a[], int len);
 void selection_sort (int a[], int len);
@@ -12,17 +15,10 @@ void merge_in_place(int* a, int len);
 
 int main()
 {
-	int a[8];
-	a[0] = 8;
-	a[1] = 12;
-	a[2] = 2;
-	a[3] = 5;
-	a[4] = 19;
-	a[5] = 55;
-	a[6] = 1;
-	a[7] = 7;
-	merge_sort(&a[0], 8);
-	print_array(&a[0], 8);
+	int a[] = { 8, 12, 2, 5, 19, 55, 1, 7 };
+	print_array(a, COUNT_OF(a));
+	merge_sort(a, COUNT_OF(a));
+	print_array(a, COUNT_OF(a));
 	return 0;
 }
 
@@ -36,7 +32,7 @@ void insert_sort (int a[], int len)
 		while (valueToInsert < a[emptyIndex - 1] && emptyIndex > 0)
 		{
 			a[i] = a[emptyIndex - 1];
-			emptyIndex --;
+			emptyIndex--;
 		}
 		a[emptyIndex] = valueToInsert;
 	}
@@ -67,7 +63,7 @@ void merge_sort(int a[], int len)
 	if (len > 1)
 	{
 		merge_sort(&a[0], len/2);
-		merge_sort(&a[len/2], len/2);
+		merge_sort(&a[len/2], len-(len/2));
 		merge(&a[0], len);
 	}
 }
@@ -84,32 +80,33 @@ void merge(int a[], int len)
 		if (a[left] < a[right])
 		{
 			merged[insert] = a[left];
-			left ++;
+			left++;
 		}
 		else
 		{
 			merged[insert] = a[right];
-			right ++;
+			right++;
 		}
-		insert ++;
+		insert++;
 	}
 	while (left < len/2)
 	{
 		merged[insert] = a[left];
-		left ++;
+		left++;
 		insert++;
 	}
 	while (right < len)
 	{
 		merged[insert] = a[right];
-		right ++;
-		insert ++;
+		right++;
+		insert++;
 	}
 	int i;
 	for (i=0; i < len; i++)
 	{
 		a[i] = merged[i];
 	}
+	free(merged);
 }
 
 void merge_in_place(int* a, int len)
@@ -134,7 +131,7 @@ void merge_in_place(int* a, int len)
 		{
 			a[insert] = a[left];
 			a[left] = temp;
-			insert ++;
+			insert++;
 			left = insert;
 		}
 		else // right < left
@@ -142,8 +139,8 @@ void merge_in_place(int* a, int len)
 			a[insert] = a[right];
 			a[right] = temp;
 			left = right;
-			right ++; 
-			insert ++;
+			right++;
+			insert++;
 		}
 		print_array(a, len);
 	}
@@ -166,8 +163,7 @@ void print_array (int a[], int len)
 	int i;
 	for (i = 0; i < len; i++)
 	{
-		int x = *(&a[i]);
-		printf("%d ", x);
+		printf("%d ", a[i]);
 	}
 	printf("\n");
 }
