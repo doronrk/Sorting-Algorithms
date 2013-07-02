@@ -106,6 +106,7 @@ void merge(int a[], int len)
 	{
 		a[i] = merged[i];
 	}
+	free(merged);
 }
 
 void merge_in_place(int* a, int len)
