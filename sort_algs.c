@@ -3,22 +3,22 @@
 // to run
 // gcc sort_algs.c
 // ./a.out
-
-#define COUNT_OF(x) (sizeof(x)/sizeof(x[0]))
-
 void print_array(int a[], int len);
 void insert_sort (int a[], int len);
 void selection_sort (int a[], int len);
+
 void merge_sort(int a[], int len);
 void merge(int a[], int len);
-void merge_in_place(int* a, int len);
+
+void quick_sort (int a[], int len);
+int partition (int a[], int len, int p_value);
 
 int main()
 {
-	int a[] = { 8, 12, 2, 5, 19, 55, 1, 7 };
-	print_array(a, COUNT_OF(a));
-	merge_sort(a, COUNT_OF(a));
-	print_array(a, COUNT_OF(a));
+	int a[9] = {32, 1 ,22, 3, 5, 56, 32, 1, 6};
+	print_array(a, 9);
+	insert_sort(&a[0], 9);
+	print_array(a, 9);
 	return 0;
 }
 
@@ -28,13 +28,13 @@ void insert_sort (int a[], int len)
 	for (i = 1; i < len; i++)
 	{
 		int valueToInsert = a[i];
-		int emptyIndex = i;
-		while (valueToInsert < a[emptyIndex - 1] && emptyIndex > 0)
+		int check = i-1;
+		while (valueToInsert < a[check] && check >= 0)
 		{
-			a[i] = a[emptyIndex - 1];
-			emptyIndex--;
+			a[check+1] = a[check];
+			check--;
 		}
-		a[emptyIndex] = valueToInsert;
+		a[check+1] = valueToInsert;
 	}
 }
 
@@ -63,7 +63,7 @@ void merge_sort(int a[], int len)
 	if (len > 1)
 	{
 		merge_sort(&a[0], len/2);
-		merge_sort(&a[len/2], len-(len/2));
+		merge_sort(&a[len/2], len - len/2);
 		merge(&a[0], len);
 	}
 }
@@ -109,49 +109,47 @@ void merge(int a[], int len)
 	free(merged);
 }
 
-void merge_in_place(int* a, int len)
+void quick_sort (int a[], int len)
 {
-	int left = 0;
-	int right = len/2;
-	// printf("a[len/2] = %d\n", a[len/2]);
-	// print_array(a, len);
-	int insert = 0;
-	while (left < len && right < len)
+	if (len > 1)
 	{
-		if (left == right)
-		{
-			if (left >= len/2)
-			{
-				break;
-			}
-			left = insert;
-		}
-		int temp = a[insert];
-		if (a[left] <= a[right])
-		{
-			a[insert] = a[left];
-			a[left] = temp;
-			insert++;
-			left = insert;
-		}
-		else // right < left
-		{
-			a[insert] = a[right];
-			a[right] = temp;
-			left = right;
-			right++;
-			insert++;
-		}
-		print_array(a, len);
+		int pivot = len/2;
+		int p_value = a[pivot];
+		int front = partition (a, len, p_value);
+		quick_sort(a, front);
+		quick_sort(&a[front+1], len - (front+1));
 	}
 }
 
-
-// void quick_sort ()
-// {
-
-// }
-
+int partition (int a[], int len, int p_value)
+{
+	int *part;
+	part = malloc(len*sizeof(int));
+	int front = 0;
+	int back = len - 1;
+	int i;
+	for (i = 0; i < len; i++)
+	{
+		if (i == len/2) {continue;}
+		if (a[i] <= p_value)
+		{
+			part[front] = a[i];
+			front++;
+		}
+		else
+		{
+			part[back] = a[i];
+			back--;
+		}
+	}
+	part[front] = p_value;
+	for (i = 0; i < len; i++)
+	{
+		a[i] = part[i];
+	}
+	free(part);
+	return front;
+}
 
 // void bucket_sort()
 // {
@@ -163,7 +161,8 @@ void print_array (int a[], int len)
 	int i;
 	for (i = 0; i < len; i++)
 	{
-		printf("%d ", a[i]);
+		int x = *(&a[i]);
+		printf("%d ", x);
 	}
 	printf("\n");
 }
