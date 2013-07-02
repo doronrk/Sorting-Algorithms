@@ -162,8 +162,7 @@ void print_array (int a[], int len)
 	int i;
 	for (i = 0; i < len; i++)
 	{
-		int x = *(&a[i]);
-		printf("%d ", x);
+		printf("%d ", a[i]);
 	}
 	printf("\n");
 }
