@@ -3,6 +3,9 @@
 // to run
 // gcc sort_algs.c
 // ./a.out
+
+#define COUNT_OF(x) (sizeof(x)/sizeof(x[0]))
+
 void print_array(int a[], int len);
 void insert_sort (int a[], int len);
 void selection_sort (int a[], int len);
@@ -12,17 +15,10 @@ void merge_in_place(int* a, int len);
 
 int main()
 {
-	int a[8];
-	a[0] = 8;
-	a[1] = 12;
-	a[2] = 2;
-	a[3] = 5;
-	a[4] = 19;
-	a[5] = 55;
-	a[6] = 1;
-	a[7] = 7;
-	merge_sort(&a[0], 8);
-	print_array(&a[0], 8);
+	int a[] = { 8, 12, 2, 5, 19, 55, 1, 7 };
+	print_array(a, COUNT_OF(a));
+	merge_sort(a, COUNT_OF(a));
+	print_array(a, COUNT_OF(a));
 	return 0;
 }
 
