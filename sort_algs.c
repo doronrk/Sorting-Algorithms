@@ -32,7 +32,7 @@ void insert_sort (int a[], int len)
 		while (valueToInsert < a[emptyIndex - 1] && emptyIndex > 0)
 		{
 			a[i] = a[emptyIndex - 1];
-			emptyIndex --;
+			emptyIndex--;
 		}
 		a[emptyIndex] = valueToInsert;
 	}
@@ -80,26 +80,26 @@ void merge(int a[], int len)
 		if (a[left] < a[right])
 		{
 			merged[insert] = a[left];
-			left ++;
+			left++;
 		}
 		else
 		{
 			merged[insert] = a[right];
-			right ++;
+			right++;
 		}
-		insert ++;
+		insert++;
 	}
 	while (left < len/2)
 	{
 		merged[insert] = a[left];
-		left ++;
+		left++;
 		insert++;
 	}
 	while (right < len)
 	{
 		merged[insert] = a[right];
-		right ++;
-		insert ++;
+		right++;
+		insert++;
 	}
 	int i;
 	for (i=0; i < len; i++)
@@ -130,7 +130,7 @@ void merge_in_place(int* a, int len)
 		{
 			a[insert] = a[left];
 			a[left] = temp;
-			insert ++;
+			insert++;
 			left = insert;
 		}
 		else // right < left
@@ -138,8 +138,8 @@ void merge_in_place(int* a, int len)
 			a[insert] = a[right];
 			a[right] = temp;
 			left = right;
-			right ++; 
-			insert ++;
+			right++;
+			insert++;
 		}
 		print_array(a, len);
 	}
