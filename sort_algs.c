@@ -12,26 +12,17 @@ void merge_in_place(int* a, int len);
 
 int main()
 {
-	int a[8];
+	int a[6];
 	a[0] = 8;
 	a[1] = 12;
 	a[2] = 2;
 	a[3] = 5;
 	a[4] = 19;
 	a[5] = 55;
-	a[6] = 835;
-	a[7] = 1;
-	int b[8];
-	b[0]= 8;
-	b[1]= 12;
-	b[2]= 2;
-	b[3]= 5;
-	b[4]= 2;
-	b[5]= 19;
-	b[6]= 1;
-	b[7]= 83;
-	merge_sort(&b[0], 8);
-	print_array(&b[0], 8);
+	a[6] = 1;
+	a[7] = 7;
+	merge_sort(&a[0], 8);
+	print_array(&a[0], 8);
 	return 0;
 }
 
@@ -71,12 +62,6 @@ void selection_sort (int a[], int len)
 	}
 }
 
-
-// void quick_sort ()
-// {
-
-// }
-
 void merge_sort(int a[], int len)
 {
 	if (len > 1)
@@ -99,34 +84,28 @@ void merge(int a[], int len)
 		if (a[left] < a[right])
 		{
 			merged[insert] = a[left];
-			insert ++;
 			left ++;
 		}
 		else
 		{
 			merged[insert] = a[right];
-			insert ++;
 			right ++;
 		}
+		insert ++;
+	}
+	while (left < len/2)
+	{
+		merged[insert] = a[left];
+		left ++;
+		insert++;
+	}
+	while (right < len)
+	{
+		merged[insert] = a[right];
+		right ++;
+		insert ++;
 	}
 	int i;
-	if (left == len/2)
-	{
-		printf("%d\n", right);
-		for (i=right; i < len; i++)
-		{
-			merged[insert] = a[i];
-			insert ++;
-		}
-	}
-	if (right == len)
-	{
-		for (i=left; i < len/2; i++)
-		{
-			merged[insert] = a[i];
-			insert ++;
-		}
-	}
 	for (i=0; i < len; i++)
 	{
 		a[i] = merged[i];
@@ -169,6 +148,13 @@ void merge_in_place(int* a, int len)
 		print_array(a, len);
 	}
 }
+
+
+// void quick_sort ()
+// {
+
+// }
+
 
 // void bucket_sort()
 // {
