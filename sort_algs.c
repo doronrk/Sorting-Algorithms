@@ -12,7 +12,7 @@ void merge_in_place(int* a, int len);
 
 int main()
 {
-	int a[6];
+	int a[8];
 	a[0] = 8;
 	a[1] = 12;
 	a[2] = 2;
